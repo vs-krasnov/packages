@@ -253,10 +253,11 @@ class MarkdownBuilder implements md.NodeVisitor {
         element.children!.add(md.Text(''));
       }
 
-      final TextStyle parentStyle = _inlines.last.style!;
+      final TextStyle? parentStyle = _inlines.last.style;
       _inlines.add(_InlineElement(
         tag,
-        style: parentStyle.merge(styleSheet.styles[tag]),
+        style: parentStyle?.merge(styleSheet.styles[tag]) ??
+            styleSheet.styles[tag],
       ));
     }
 
@@ -429,7 +430,11 @@ class MarkdownBuilder implements md.NodeVisitor {
         final Widget? child =
             builders[tag]!.visitElementAfter(element, styleSheet.styles[tag]);
         if (child != null) {
-          current.children[0] = child;
+          if (current.children.isNotEmpty) {
+            current.children[0] = child;
+          } else {
+            current.children.add(child);
+          }
         }
       } else if (tag == 'img') {
         // create an image widget for this image
@@ -577,7 +582,7 @@ class MarkdownBuilder implements md.NodeVisitor {
     if (_inlines.isEmpty) {
       _inlines.add(_InlineElement(
         tag,
-        style: styleSheet.styles[tag!],
+        style: tag != null ? styleSheet.styles[tag] : null,
       ));
     }
   }
