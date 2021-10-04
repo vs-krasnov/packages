@@ -385,12 +385,8 @@ class MarkdownBuilder implements md.NodeVisitor {
                 ? CrossAxisAlignment.start
                 : CrossAxisAlignment.baseline,
             children: <Widget>[
-              SizedBox(
-                width: styleSheet.listIndent! +
-                    styleSheet.listBulletPadding!.left +
-                    styleSheet.listBulletPadding!.right,
-                child: bullet,
-              ),
+              SizedBox(width: styleSheet.listIndent!),
+              bullet,
               Expanded(child: child)
             ],
           );
@@ -515,7 +511,10 @@ class MarkdownBuilder implements md.NodeVisitor {
 
   Widget _buildCheckbox(bool checked) {
     if (checkboxBuilder != null) {
-      return checkboxBuilder!(checked);
+      return Padding(
+        padding: styleSheet.listBulletPadding!,
+        child: checkboxBuilder!(checked),
+      );
     }
     return Padding(
       padding: styleSheet.listBulletPadding!,
