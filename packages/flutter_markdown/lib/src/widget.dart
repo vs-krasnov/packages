@@ -130,6 +130,36 @@ enum MarkdownListItemCrossAxisAlignment {
   /// * [baseline], which will position the bullet and list item on the
   ///   baseline.
   start,
+
+  /// Uses [CrossAxisAlignment.center] for the row the bullet and the list item
+  /// are placed in.
+  ///
+  /// This alignment will ensure that intrinsic height measurements work.
+  ///
+  /// However, note that this alignment might not line up the bullet with the
+  /// list text in the way you would expect in certain scenarios.
+  /// See https://github.com/flutter/flutter_markdown/issues/169 for example
+  /// cases that do not produce expected results.
+  ///
+  /// See also:
+  /// * [baseline], which will position the bullet and list item on the
+  ///   baseline.
+  center,
+
+  /// Uses [CrossAxisAlignment.end] for the row the bullet and the list item
+  /// are placed in.
+  ///
+  /// This alignment will ensure that intrinsic height measurements work.
+  ///
+  /// However, note that this alignment might not line up the bullet with the
+  /// list text in the way you would expect in certain scenarios.
+  /// See https://github.com/flutter/flutter_markdown/issues/169 for example
+  /// cases that do not produce expected results.
+  ///
+  /// See also:
+  /// * [baseline], which will position the bullet and list item on the
+  ///   baseline.
+  end,
 }
 
 /// A base class for widgets that parse and display Markdown.

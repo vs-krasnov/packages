@@ -376,15 +376,29 @@ class MarkdownBuilder implements md.NodeVisitor {
           } else {
             bullet = _buildBullet(_listIndents.last);
           }
+
+          CrossAxisAlignment crossAxisAlignment;
+          switch (listItemCrossAxisAlignment) {
+            case MarkdownListItemCrossAxisAlignment.baseline:
+              crossAxisAlignment = CrossAxisAlignment.baseline;
+              break;
+            case MarkdownListItemCrossAxisAlignment.start:
+              crossAxisAlignment = CrossAxisAlignment.start;
+              break;
+            case MarkdownListItemCrossAxisAlignment.center:
+              crossAxisAlignment = CrossAxisAlignment.center;
+              break;
+            case MarkdownListItemCrossAxisAlignment.end:
+              crossAxisAlignment = CrossAxisAlignment.end;
+              break;
+          }
+
           child = Row(
             textBaseline: listItemCrossAxisAlignment ==
-                    MarkdownListItemCrossAxisAlignment.start
-                ? null
-                : TextBaseline.alphabetic,
-            crossAxisAlignment: listItemCrossAxisAlignment ==
-                    MarkdownListItemCrossAxisAlignment.start
-                ? CrossAxisAlignment.start
-                : CrossAxisAlignment.baseline,
+                    MarkdownListItemCrossAxisAlignment.baseline
+                ? TextBaseline.alphabetic
+                : null,
+            crossAxisAlignment: crossAxisAlignment,
             children: <Widget>[
               SizedBox(
                 width: styleSheet.listIndent! +
